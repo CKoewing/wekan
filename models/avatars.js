@@ -1,9 +1,7 @@
 Avatars = new FS.Collection('avatars', {
-  stores: [
-    new FS.Store.GridFS('avatars'),
-  ],
+  stores: [new FS.Store.GridFS('avatars')],
   filter: {
-    maxSize: 72000,
+    maxSize: 520000,
     allow: {
       contentTypes: ['image/*'],
     },
@@ -18,10 +16,14 @@ Avatars.allow({
   insert: isOwner,
   update: isOwner,
   remove: isOwner,
-  download() { return true; },
+  download() {
+    return true;
+  },
   fetch: ['userId'],
 });
 
 Avatars.files.before.insert((userId, doc) => {
   doc.userId = userId;
 });
+
+export default Avatars;
